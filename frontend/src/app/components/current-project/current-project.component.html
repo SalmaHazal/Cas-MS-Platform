@@ -1,0 +1,233 @@
+<div class="bg-white py-10 px-4 sm:px-10 lg:px-20">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <h2 class="text-3xl font-bold text-center mb-2">
+      Current Project: <span class="text-[#0dcaf0]">CARAVANE AL IHSSANE</span>
+    </h2>
+
+    <!-- Project Description -->
+    <div class="bg-white py-10 px-4 sm:px-10 lg:px-20 text-center">
+      <ul class="space-y-6 text-gray-700">
+        <li class="flex items-center justify-center">
+          <fa-icon
+            [icon]="faCalendarAlt"
+            class="text-[#0dcaf0] text-3xl mr-3"
+          ></fa-icon>
+          <p class="text-center text-lg font-[500] text-gray-700">
+            14, 15, and 16 February.
+          </p>
+        </li>
+        <li class="flex items-center justify-center">
+          <fa-icon
+            [icon]="faMapMarkerAlt"
+            class="text-[#0dcaf0] text-3xl mr-3"
+          ></fa-icon>
+          <p class="text-center text-lg font-[500] text-gray-700">
+            Tisoutin, Imchkioun, and Tibourodin.
+          </p>
+        </li>
+        <li class="flex items-center justify-center">
+          <fa-icon
+            [icon]="faBullseye"
+            class="text-[#0dcaf0] text-3xl mr-3"
+          ></fa-icon>
+          <p class="text-center text-lg font-[500] text-gray-700">
+            Support 250 families during the winter.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Card 1 -->
+      <div class="rounded-lg shadow-lg bg-blue-50 p-4">
+        <img
+          src="assets/images/projet1.png"
+          alt="Project 1"
+          class="rounded-lg w-full h-auto mb-4"
+        />
+        <h3 class="text-lg font-semibold text-center">Project 1</h3>
+        <p class="text-center">Budget: 113600 DH</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="rounded-lg shadow-lg bg-blue-50 p-4">
+        <img
+          src="assets/images/projet2.png"
+          alt="Project 2"
+          class="rounded-lg w-full h-auto mb-4"
+        />
+        <h3 class="text-lg font-semibold text-center">Project 2</h3>
+        <p class="text-center">Budget: 65500 DH</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="rounded-lg shadow-lg bg-blue-50 p-4">
+        <img
+          src="assets/images/projet3.png"
+          alt="Project 3"
+          class="rounded-lg w-full h-auto mb-4"
+        />
+        <h3 class="text-lg font-semibold text-center">Project 3</h3>
+        <p class="text-center">Budget: 55500 DH</p>
+      </div>
+    </div>
+
+    <!-- Contribution Options -->
+    <div class="text-center mb-12">
+      <h3
+        class="text-3xl font-[500] mb-8"
+      >
+        You Can Contribute With:
+      </h3>
+      <div class="flex flex-wrap justify-center gap-12">
+        <!-- Contribution Item -->
+        <div
+          class="flex flex-col items-center bg-white shadow-lg p-6 rounded-xl hover:scale-105 transition-transform duration-300"
+        >
+          <!-- Icon -->
+          <div
+            class="bg-gradient-to-r from-[#0dcaf0] to-[#0cb5e5] p-4 rounded-2xl mb-4 shadow-md"
+          >
+            <fa-icon
+              [icon]="faTshirt"
+              class="text-[#0dcaf0] text-5xl"
+            ></fa-icon>
+          </div>
+          <p class="font-bold text-lg mb-2">Clothes</p>
+          <p class="text-sm text-gray-500 mb-4">Help warm those in need!</p>
+
+          <!-- Progress Bar -->
+          <div
+            class="relative w-full bg-gray-300 rounded-full h-4 overflow-hidden mb-4 shadow-inner"
+          >
+            <div
+              class="absolute top-0 left-0 h-4 rounded-full bg-[#0dcaf0]"
+              style="
+                width: 60%;
+                box-shadow: 0 0 10px rgba(13, 202, 240, 0.6),
+                  inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+              "
+            ></div>
+          </div>
+
+          <!-- Donate Button -->
+          <button
+            (click)="openDonateDialog()"
+            class="px-6 py-2 bg-[#0dcaf0] text-white font-medium rounded-2xl hover:bg-[#0bb0d8] transition-colors duration-200"
+          >
+            Donate Clothes
+          </button>
+        </div>
+
+        <!-- Sneakers Contribution -->
+        <div
+          class="flex flex-col items-center bg-white shadow-lg p-6 rounded-xl hover:scale-105 transition-transform duration-300"
+        >
+          <div
+            class="bg-gradient-to-r from-[#0dcaf0] to-[#0cb5e5] p-4 rounded-2xl mb-4 shadow-md"
+          >
+            <fa-icon
+              [icon]="faShoePrints"
+              class="text-[#0dcaf0] text-5xl"
+            ></fa-icon>
+          </div>
+          <p class="font-bold text-lg mb-2">Sneakers</p>
+          <p class="text-sm text-gray-500 mb-4">Every step counts!</p>
+
+          <div
+            class="relative w-full bg-gray-300 rounded-full h-4 overflow-hidden mb-4 shadow-inner"
+          >
+            <div
+              class="absolute top-0 left-0 h-4 rounded-full bg-[#0dcaf0]"
+              style="
+                width: 60%;
+                box-shadow: 0 0 10px rgba(13, 202, 240, 0.6),
+                  inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+              "
+            ></div>
+          </div>
+
+          <button
+            (click)="openDonateDialog()"
+            class="px-6 py-2 bg-[#0dcaf0] text-white font-medium rounded-2xl hover:bg-[#0bb0d8] transition-colors duration-200"
+          >
+            Donate Sneakers
+          </button>
+        </div>
+
+        <!-- Books Contribution -->
+        <div
+          class="flex flex-col items-center bg-white shadow-lg p-6 rounded-xl hover:scale-105 transition-transform duration-300"
+        >
+          <div
+            class="bg-gradient-to-r from-[#0dcaf0] to-[#0cb5e5] p-4 rounded-2xl mb-4 shadow-md"
+          >
+            <fa-icon [icon]="faBook" class="text-[#0dcaf0] text-5xl"></fa-icon>
+          </div>
+          <p class="font-bold text-lg mb-2">Books</p>
+          <p class="text-sm text-gray-500 mb-4">
+            Share knowledge and opportunity!
+          </p>
+
+          <div
+            class="relative w-full bg-gray-300 rounded-full h-4 overflow-hidden mb-4 shadow-inner"
+          >
+            <div
+              class="absolute top-0 left-0 h-4 rounded-full bg-[#0dcaf0]"
+              style="
+                width: 60%;
+                box-shadow: 0 0 10px rgba(13, 202, 240, 0.6),
+                  inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+              "
+            ></div>
+          </div>
+
+          <button
+            (click)="openDonateDialog()"
+            class="px-6 py-2 bg-[#0dcaf0] text-white font-medium rounded-2xl hover:bg-[#0bb0d8] transition-colors duration-200"
+          >
+            Donate Books
+          </button>
+        </div>
+
+        <!-- Money Contribution -->
+        <div
+          class="flex flex-col items-center bg-white shadow-lg p-6 rounded-xl hover:scale-105 transition-transform duration-300"
+        >
+          <div
+            class="bg-gradient-to-r from-[#0dcaf0] to-[#0cb5e5] p-4 rounded-2xl w-20 mb-4 shadow-md"
+          >
+            <fa-icon
+              [icon]="faDollarSign"
+              class="text-[#0dcaf0] text-5xl"
+            ></fa-icon>
+          </div>
+          <p class="font-bold text-lg mb-2">Money</p>
+          <p class="text-sm text-gray-500 mb-4">Support with financial aid!</p>
+
+          <div
+            class="relative w-full bg-gray-300 rounded-full h-4 overflow-hidden mb-4 shadow-inner"
+          >
+            <div
+              class="absolute top-0 left-0 h-4 rounded-full bg-[#0dcaf0]"
+              style="
+                width: 60%;
+                box-shadow: 0 0 10px rgba(13, 202, 240, 0.6),
+                  inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+              "
+            ></div>
+          </div>
+
+          <button
+            (click)="openFinancialAidDialog()"
+            class="px-6 py-2 bg-[#0dcaf0] text-white font-medium rounded-2xl hover:bg-[#0bb0d8] transition-colors duration-200"
+          >
+            Donate Money
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
