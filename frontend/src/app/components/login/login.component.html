@@ -1,0 +1,94 @@
+<div class="flex justify-center items-center min-h-screen bg-white">
+  <div class="w-full max-w-5xl bg-white p-8 rounded-lg shadow-xl">
+    <h2 class="text-center text-3xl font-semibold text-[#0dcaf0] mb-6">
+      Login
+    </h2>
+
+    <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="login()">
+      <!-- Email Section -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Email</label
+        >
+        <input
+          formControlName="email"
+          id="email"
+          type="email"
+          placeholder="Example: john.doe@gmail.com"
+          class="w-full p-3 border border-gray-300 rounded-md"
+          required
+        />
+        <div
+          *ngIf="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+          "
+          class="mt-1 text-sm text-red-500 font-medium"
+        >
+          <small
+            *ngIf="loginForm.get('email')?.errors?.['required']"
+            class="block"
+          >
+            Email is required
+          </small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']"
+            >Invalid email format</small
+          >
+        </div>
+      </div>
+
+      <!-- Password Section -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700"
+          >Password</label
+        >
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          placeholder="Example: 12345678"
+          class="w-full p-3 border border-gray-300 rounded-md"
+          required
+        />
+        <div
+          *ngIf="
+            loginForm.get('password')?.invalid &&
+            loginForm.get('password')?.touched
+          "
+          class="mt-1 text-sm text-red-500 font-medium"
+        >
+          <small *ngIf="loginForm.get('password')?.errors?.['required']"
+            >Password is required</small
+          >
+          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+            Password must be at least 6 characters
+          </small>
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <div class="text-center mt-6">
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          [ngClass]="{
+            'bg-[#0dcaf0]': !loginForm.invalid,
+            'bg-gray-400 cursor-not-allowed': loginForm.invalid,
+            'hover:bg-[#0db7d0]': !loginForm.invalid,
+            'transition duration-300': true
+          }"
+          class="w-full bg-[#0dcaf0] text-white py-3 px-6 rounded-lg hover:bg-[#0db7d0] transition duration-300"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+
+    <!-- Sign Up Link -->
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-600">
+        Don't have an account?
+        <a href="/signup" class="text-[#0dcaf0] hover:underline">Sign Up</a>
+      </p>
+    </div>
+  </div>
+</div>
