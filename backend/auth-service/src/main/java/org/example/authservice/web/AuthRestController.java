@@ -44,8 +44,7 @@ public class AuthRestController {
                 request.getEmail(),
                 request.getPassword(),
                 request.getGender(),
-                request.getCell(),
-                request.getStudentId()
+                request.getCell()
         );
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

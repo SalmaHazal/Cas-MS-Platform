@@ -22,5 +22,4 @@ public class RegisterRequest {
 
     private Gender gender;
     private Cell cell;
-    private String studentId;
 }

@@ -86,7 +86,7 @@ public class AuthService {
         );
     }
 
-    public Map<String, Object> register(String fullName, String email, String password, Gender gender, Cell cell, String studentId) {
+    public Map<String, Object> register(String fullName, String email, String password, Gender gender, Cell cell) {
 
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
@@ -108,7 +108,6 @@ public class AuthService {
                 .password(encodedPassword)
                 .gender(gender)
                 .cell(cell)
-                .studentId(studentId)
 //                .profilePicture(filePath.toUri().toString())
                 .role("USER")
                 .build();

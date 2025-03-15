@@ -28,13 +28,13 @@ export class AuthService {
     );
   }
 
-  public register(fullName: string, email: string, password: string, gender: string, cell: string, studentId: string) {
+  public register(fullName: string, email: string, password: string, gender: string, cell: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     });
   
-    const body = { fullName, email, password, gender, cell, studentId };
+    const body = { fullName, email, password, gender, cell};
   
     return this.http.post(
       `${environment.backendHost}/auth/register`,

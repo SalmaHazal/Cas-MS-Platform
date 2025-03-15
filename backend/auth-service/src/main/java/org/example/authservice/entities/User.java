@@ -21,9 +21,6 @@ public class User {
 
     private Gender gender;
 
-    @Column(unique = true)
-    private String studentId;
-
     private Cell cell;
 
     @Column(nullable = false)

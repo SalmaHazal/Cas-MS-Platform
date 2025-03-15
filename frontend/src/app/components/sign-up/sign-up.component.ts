@@ -35,7 +35,6 @@ export class SignUpComponent implements OnInit {
         confirmPassword: ['', [Validators.required]],
         gender: ['', [Validators.required]],
         cell: ['', [Validators.required]],
-        studentId: ['', [Validators.required]],
       },
       {
         validators: this.passwordMatchValidator,
@@ -55,10 +54,9 @@ export class SignUpComponent implements OnInit {
     let password = this.signUpForm.value.password;
     let gender = this.signUpForm.value.gender;
     let cell = this.signUpForm.value.cell;
-    let studentId = this.signUpForm.value.studentId;
 
     this.authService
-      .register(fullName, email, password, gender, cell, studentId)
+      .register(fullName, email, password, gender, cell)
       .subscribe({
         next: (data) => {
           console.log('Registration Successful:', data);

@@ -173,35 +173,6 @@
         </div>
       </div>
 
-      <!-- Matricul ID Section -->
-      <div>
-        <label for="matriculId" class="block text-sm font-medium text-gray-700"
-          >Matricule ID</label
-        >
-        <input
-          formControlName="studentId"
-          id="matriculId"
-          type="text"
-          placeholder="Example: 12345678"
-          class="w-full p-3 border border-gray-300 rounded-md"
-          required
-        />
-        <div
-          *ngIf="
-            signUpForm.get('studentId')?.invalid &&
-            signUpForm.get('studentId')?.touched
-          "
-          class="mt-1 text-sm text-red-500 font-medium"
-        >
-          <small
-            *ngIf="signUpForm.get('studentId')?.errors?.['required']"
-            class="block"
-          >
-            Student Id is required
-          </small>
-        </div>
-      </div>
-
       <!-- Role Section -->
       <div class="mt-6">
         <label class="block text-lg font-semibold text-[#0dcaf0]"
