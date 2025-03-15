@@ -1,3 +1,16 @@
+<div class="bg-white shadow-xl border-b border-gray-200">
+  <div class="max-w-5xl mx-auto flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="assets/images/logo.png" alt="Logo" class="h-20 mt-[-25px]" />
+      <span class="text-[#0dcaf0] text-xl font-semibold">Welcome To CAS</span>
+    </div>
+
+    <div>
+      <img src="assets/images/CAS_9albon.png" alt="Logo" class="h-20" />
+    </div>
+  </div>
+</div>
+
 <div class="flex justify-center items-center min-h-screen bg-white">
   <div class="w-full max-w-5xl bg-white p-8 rounded-lg shadow-xl">
     <h2 class="text-center text-3xl font-semibold text-[#0dcaf0] mb-6">
@@ -125,23 +138,8 @@
         </div>
       </div>
 
-      <!-- Picture Upload and Gender Section -->
+      <!-- Gender Section -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label
-            for="profilePicture"
-            class="block text-sm font-medium text-gray-700"
-            >Profile Picture</label
-          >
-          <input
-            id="profilePicture"
-            type="file"
-            accept="image/*"
-            class="w-full p-3 border border-gray-300 rounded-md"
-            required
-          />
-        </div>
-
         <div>
           <label for="gender" class="block text-sm font-medium text-gray-700"
             >Gender</label
@@ -173,37 +171,33 @@
         </div>
       </div>
 
-      <!-- Role Section -->
       <div class="mt-6">
-        <label class="block text-lg font-semibold text-[#0dcaf0]"
-          >Choose Your Role</label
-        >
+        <label class="block text-lg font-semibold text-[#0dcaf0]">
+          What does HAYAT represent for INPT Students?
+        </label>
         <div class="mt-4">
           <select
-            formControlName="cell"
-            name="role"
-            id="role"
+            formControlName="question"
+            id="question"
             class="w-full h-10 px-4 text-sm text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#0dcaf0] focus:border-[#0dcaf0]"
           >
-            <option value="" disabled selected>Select a Cell</option>
-            <option value="Sponsoring">Sponsoring</option>
-            <option value="Collect">Collect</option>
-            <option value="Media">Media</option>
-            <option value="Design">Design</option>
-            <option value="Redaction">Redaction</option>
-            <option value="Logistic">Logistic</option>
+            <option value="" disabled selected>Answer the question</option>
+            <option value="Special Class">A special building</option>
+            <option value="Director of INPT">The Director of INPT</option>
+            <option value="Water Fountain">A water fountain</option>
           </select>
           <div
             *ngIf="
-              signUpForm.get('cell')?.invalid && signUpForm.get('cell')?.touched
+              signUpForm.get('question')?.invalid &&
+              signUpForm.get('question')?.touched
             "
             class="mt-1 text-sm text-red-500 font-medium"
           >
             <small
-              *ngIf="signUpForm.get('cell')?.errors?.['required']"
+              *ngIf="signUpForm.get('question')?.errors?.['required']"
               class="block"
             >
-              Cell is required
+              This question is required.
             </small>
           </div>
         </div>

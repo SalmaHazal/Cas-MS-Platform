@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.authservice.entities.Cell;
 import org.example.authservice.entities.Gender;
 
 @Getter
@@ -21,5 +20,5 @@ public class RegisterRequest {
     private String password;
 
     private Gender gender;
-    private Cell cell;
+    private String question;
 }

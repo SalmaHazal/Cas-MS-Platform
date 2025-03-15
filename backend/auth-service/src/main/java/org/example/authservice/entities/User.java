@@ -21,10 +21,8 @@ public class User {
 
     private Gender gender;
 
-    private Cell cell;
+    private String question;
 
     @Column(nullable = false)
     private String role;
-
-    private String profilePicture;
 }

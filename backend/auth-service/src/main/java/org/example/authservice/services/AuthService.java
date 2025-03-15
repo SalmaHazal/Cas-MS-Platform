@@ -1,6 +1,5 @@
 package org.example.authservice.services;
 
-import org.example.authservice.entities.Cell;
 import org.example.authservice.entities.Gender;
 import org.example.authservice.entities.User;
 import org.example.authservice.repository.UserRepository;
@@ -17,16 +16,11 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,7 +80,7 @@ public class AuthService {
         );
     }
 
-    public Map<String, Object> register(String fullName, String email, String password, Gender gender, Cell cell) {
+    public Map<String, Object> register(String fullName, String email, String password, Gender gender, String question) {
 
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
@@ -94,21 +88,12 @@ public class AuthService {
 
         String encodedPassword = passwordEncoder.encode(password);
 
-//        Path folderPath = Path.of(System.getProperty("user.dir"), "src", "main", "resources", "profilePictures");
-//        if (!Files.exists(folderPath)) {
-//            Files.createDirectories(folderPath);
-//        }
-//        String fileName = UUID.randomUUID().toString();
-//        Path filePath = folderPath.resolve(fileName + ".png");
-//        Files.copy(profilePicture.getInputStream(), filePath);
-
         User user = User.builder()
                 .email(email)
                 .fullName(fullName)
                 .password(encodedPassword)
                 .gender(gender)
-                .cell(cell)
-//                .profilePicture(filePath.toUri().toString())
+                .question(question)
                 .role("USER")
                 .build();
 

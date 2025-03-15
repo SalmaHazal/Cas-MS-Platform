@@ -34,7 +34,7 @@ export class SignUpComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
         gender: ['', [Validators.required]],
-        cell: ['', [Validators.required]],
+        question: ['', [Validators.required]],
       },
       {
         validators: this.passwordMatchValidator,
@@ -53,10 +53,10 @@ export class SignUpComponent implements OnInit {
     let email = this.signUpForm.value.email;
     let password = this.signUpForm.value.password;
     let gender = this.signUpForm.value.gender;
-    let cell = this.signUpForm.value.cell;
+    let question = this.signUpForm.value.question;
 
     this.authService
-      .register(fullName, email, password, gender, cell)
+      .register(fullName, email, password, gender, question)
       .subscribe({
         next: (data) => {
           console.log('Registration Successful:', data);

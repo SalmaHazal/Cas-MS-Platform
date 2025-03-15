@@ -3,17 +3,12 @@ package org.example.authservice.web;
 import jakarta.validation.Valid;
 import org.example.authservice.dtos.LoginRequest;
 import org.example.authservice.dtos.RegisterRequest;
-import org.example.authservice.entities.Cell;
-import org.example.authservice.entities.Gender;
 import org.example.authservice.services.AuthService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -44,7 +39,7 @@ public class AuthRestController {
                 request.getEmail(),
                 request.getPassword(),
                 request.getGender(),
-                request.getCell()
+                request.getQuestion()
         );
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
