@@ -21,8 +21,8 @@ public class AuthRestController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<Authentication> authentication(Authentication authentication) {
-        return ResponseEntity.ok(authentication);
+    public ResponseEntity<String> authentication(Authentication authentication) {
+        return ResponseEntity.ok(authentication.getName());
     }
 
     @PostMapping("/login")
