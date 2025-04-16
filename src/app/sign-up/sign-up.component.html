@@ -1,0 +1,97 @@
+<div class="flex justify-center items-center min-h-screen bg-white">
+    <div class="w-full max-w-5xl bg-white p-8 rounded-lg shadow-xl">
+      <h2 class="text-center text-3xl font-semibold text-[#0dcaf0] mb-6">Sign Up</h2>
+  
+      <form class="space-y-6">
+        <!-- Full Name and Email Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="fullName" class="block text-sm font-medium  text-gray-700">Full Name</label>
+            <input id="fullName" type="text" placeholder="Enter your full name" class="w-full p-3 bg-white border border-gray-300 rounded-md" required />
+          </div>
+  
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" type="email" placeholder="Enter your email" class="w-full p-3 border bg-white border-gray-300 rounded-md" required />
+          </div>
+        </div>
+  
+        <!-- Password and Confirm Password Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input id="password" type="password" placeholder="Enter your password" class="w-full p-3 border bg-white border-gray-300 rounded-md" required />
+          </div>
+  
+          <div>
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input id="confirmPassword" type="password" placeholder="Confirm your password" class="w-full p-3 border bg-white border-gray-300 rounded-md" required />
+          </div>
+        </div>
+  
+        <!-- Picture Upload and Gender Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="profilePicture" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+            <input id="profilePicture" type="file" accept="image/*" class="w-full p-3 border border-gray-300 bg-white rounded-md" required />
+          </div>
+  
+          <div>
+            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+            <select id="gender" class="w-full p-3 border border-gray-300 bg-white rounded-md text-black" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- Matricul ID Section -->
+        <div>
+          <label for="matriculId" class="block text-sm font-medium text-gray-700">Matricul ID</label>
+          <input id="matriculId" type="text" placeholder="Enter your matricul ID" class="w-full p-3 border bg-white border-gray-300 rounded-md" required />
+        </div>
+  
+        <!-- Role Section -->
+        <div class="mt-6">
+          <label class="block text-lg font-medium text-[#1c1d1d]">Choose Your Role</label>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-2">
+            <div>
+              <div class="flex items-center">
+                <input id="sponsoring" type="radio" name="role" value="sponsoring" class="mr-2 " />
+                <label for="sponsoring" class="text-sm text-gray-700">Sponsoring</label>
+              </div>
+              <div class="flex items-center">
+                <input id="collect" type="radio" name="role" value="collect" class="mr-2" />
+                <label for="collect" class="text-sm text-gray-700">Collect</label>
+              </div>
+              <div class="flex items-center">
+                <input id="media" type="radio" name="role" value="media" class="mr-2" />
+                <label for="media" class="text-sm text-gray-700">Media</label>
+              </div>
+              <div class="flex items-center">
+                <input id="design" type="radio" name="role" value="design" class="mr-2" />
+                <label for="design" class="text-sm text-gray-700">Design</label>
+              </div>
+              <div class="flex items-center">
+                <input id="redaction" type="radio" name="role" value="redaction" class="mr-2" />
+                <label for="redaction" class="text-sm text-gray-700">Redaction</label>
+              </div>
+              <div class="flex items-center">
+                <input id="logistic" type="radio" name="role" value="logistic" class="mr-2" />
+                <label for="logistic" class="text-sm text-gray-700">Logistic</label>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <div class="text-center mt-6">
+          <button type="submit" class="w-full bg-[#0dcaf0] text-white py-3 px-6 rounded-lg hover:bg-[#0db7d0] transition duration-300">
+            Sign Up
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

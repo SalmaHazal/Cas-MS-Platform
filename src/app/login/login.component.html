@@ -1,0 +1,39 @@
+
+
+<div class="flex justify-center items-center min-h-screen bg-white">
+    <div class="w-full max-w-5xl bg-white p-8 rounded-lg shadow-xl border">
+      <h2 class="text-center text-3xl font-semibold text-[#0dcaf0] mb-6">Login</h2>
+      <form class="space-y-6" [formGroup]="loginFormGroup">
+        <!-- Full Name and Email Section -->
+        <div class=" grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium  text-gray-700">Username</label>
+            <input formControlName="username" type="username" placeholder="Enter your username" class="w-full p-3 bg-white border border-gray-300 rounded-md text-gray-700" required />
+          </div>
+  
+         
+        </div>
+  
+        <!-- Password and Confirm Password Section -->
+        <div class=" grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Password</label>
+            <input formControlName="password" type="password" placeholder="Enter your password" class="w-full p-3 border bg-white border-gray-300 rounded-md text-gray-700 " required />
+          </div>
+
+        </div>
+  
+     
+  
+    
+    
+  
+        <!-- Submit Button -->
+        <div class="text-center mt-6">
+          <button (click)="login()"  class="w-full bg-[#0dcaf0] text-white py-3 px-6 rounded-lg hover:bg-[#0db7d0] transition duration-300">
+            Sign Up
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
