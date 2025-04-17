@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "auth-service", configuration = FeignClientConfig.class)
 public interface UserFeignClient {
     @GetMapping("/auth/profile")
-    String currentUserProfile();
+    Long currentUserId();
 }

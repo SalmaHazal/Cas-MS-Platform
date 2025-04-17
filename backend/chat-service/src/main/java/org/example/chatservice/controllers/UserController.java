@@ -1,5 +1,6 @@
 package org.example.chatservice.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.chatservice.dtos.UserResponse;
 import org.example.chatservice.feignClient.UserFeignClient;
@@ -16,18 +17,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@Tag(name = "User")
 public class UserController {
     private final UserService userService;
-
     private final UserFeignClient userFeignClient;
 
     @GetMapping("/currentuser") @ResponseStatus(HttpStatus.OK)
-    public String currentUser(){
-        return userFeignClient.currentUserProfile();
+    public Long currentUser(){
+        return userFeignClient.currentUserId();
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers(Authentication authentication) {
-        return ResponseEntity.ok(userService.getAllUsersExceptSelf(authentication));
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        Long currentUserId = userFeignClient.currentUserId();
+        return ResponseEntity.ok(userService.getAllUsersExceptSelf(currentUserId));
     }
 }

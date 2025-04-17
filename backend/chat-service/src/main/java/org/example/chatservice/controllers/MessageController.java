@@ -1,8 +1,11 @@
 package org.example.chatservice.controllers;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.chatservice.dtos.MessageRequest;
 import org.example.chatservice.dtos.MessageResponse;
+import org.example.chatservice.feignClient.UserFeignClient;
 import org.example.chatservice.services.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +17,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/messages")
 @RequiredArgsConstructor
+@Tag(name = "Message")
 public class MessageController {
 
     private final MessageService messageService;
+    private final UserFeignClient userFeignClient;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -28,17 +33,18 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadMedia(
             @RequestParam("chat-id") String chatId,
-            // to do add @Parameter from swagger
-            @RequestParam("file") MultipartFile file,
-            Authentication authentication
+            @Parameter()
+            @RequestParam("file") MultipartFile file
             ) {
-        messageService.uploadMediaMessage(chatId, file, authentication);
+        Long currentUserId = userFeignClient.currentUserId();
+        messageService.uploadMediaMessage(chatId, file, currentUserId);
     }
 
     @PatchMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void setMessagesToSeen(@RequestParam("chat-id") String chatId, Authentication authentication) {
-        messageService.setMessagesToSeen(chatId, authentication);
+    public void setMessagesToSeen(@RequestParam("chat-id") String chatId) {
+        Long currentUserId = userFeignClient.currentUserId();
+        messageService.setMessagesToSeen(chatId, currentUserId);
     }
 
     @GetMapping("/chat/{chat-id}")

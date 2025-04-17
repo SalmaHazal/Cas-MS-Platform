@@ -5,8 +5,9 @@ spring:
       uploads:
         media-output.path: ./uploads
 
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/chat-db?createDatabaseIfNotExists=true
+    url: jdbc:postgresql://localhost:5432/casPlatform?createDatabaseIfNotExists=true
     username: postgres
     password: root
 
@@ -46,3 +47,5 @@ eureka:
 logging:
   level:
     org.springframework.security: DEBUG
+springdoc:
+  default-produces-media-type: application/json

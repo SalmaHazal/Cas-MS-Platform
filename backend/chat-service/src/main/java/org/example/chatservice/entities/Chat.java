@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.chatservice.common.BaseAuditingEntity;
 import org.example.chatservice.constants.ChatConstants;
-import org.example.chatservice.dtos.UserDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,7 +41,7 @@ public class Chat extends BaseAuditingEntity {
     private List<Message> messages;
 
     @Transient
-    public String getChatName(final String senderId) {
+    public String getChatName(final Long senderId) {
         if (recipient.getId().equals(senderId)) {
             return sender.getFullName();
         }
@@ -50,7 +49,7 @@ public class Chat extends BaseAuditingEntity {
     }
 
     @Transient
-    public long getUnreadMessages(final String senderId) {
+    public long getUnreadMessages(final Long senderId) {
         return messages
                 .stream()
                 .filter(m -> m.getReceiverId().equals(senderId))
@@ -76,6 +75,5 @@ public class Chat extends BaseAuditingEntity {
         }
         return null;
     }
-
 
 }

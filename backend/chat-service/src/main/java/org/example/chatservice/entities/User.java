@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.chatservice.common.BaseAuditingEntity;
 import org.example.chatservice.constants.UserConstants;
-import org.example.chatservice.dtos.Gender;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,17 +24,29 @@ import java.util.List;
 @NamedQuery(name = UserConstants.FIND_USER_BY_PUBLIC_ID,
             query = "SELECT u FROM User u WHERE u.id = :publicId")
 
-public class User extends BaseAuditingEntity {
+public class User {
 
     private static final int LAST_ACTIVE_INTERVAL = 5;
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String fullName;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
+    private Gender gender;
+
+    private String question;
+
     private LocalDateTime lastSeen;
+
+    private String role;
 
     @OneToMany(mappedBy = "sender")
     private List<Chat> chatsAsSender;

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           progressBar: true,
           closeButton: true,
         });
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/admin');
       },
       error: (err) => {
         console.error('Login Error:', err);

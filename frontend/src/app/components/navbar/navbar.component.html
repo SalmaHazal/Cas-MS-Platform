@@ -1,0 +1,198 @@
+
+<div class="navbar  shadow-md" style="background-color: #37AFE1;">
+    <div class="flex-none">
+      <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+          <!-- Page content here -->
+          <label for="my-drawer" class="btn btn-square btn-ghost ">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current" style="color: white;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </label>
+        </div>
+       
+        
+        
+        <div class="drawer-side ">
+          <label for="my-drawer" class="drawer-overlay"></label>
+          <ul class="menu text-base-content min-h-full w-50 p-4 flex flex-col" style="background-color: #37AFE1;">
+            <!-- Brand / Logo -->
+            <figure class="flex justify-center">
+              <img src="assets/images/white.png" alt="Shoes" class="rounded-xl w-28 h-28 object-cover bg-center" />
+            </figure>
+            <ul class="menu  rounded-box space-y-3 w-50 mt-7 p-4" style="margin-top: 10%; background-color: #37AFE1;">
+              <li>
+                <a  
+                
+                routerLink='/admin/dashboard'
+                routerLinkActive="activebutton" 
+                ariaCurrentWhenActive="page"
+                style="color: white;">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a
+                
+                routerLinkActive="activebutton"  
+                 routerLink='/projects'
+                 ariaCurrentWhenActive="page"
+                 style="color: white;">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                  </svg>
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a style="color: white;">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18l-2 13H5L3 5zM3 5l2-2h14l2 2" />
+                  </svg>
+                  Chat
+                </a>
+              </li>
+              <li>
+                <a style="color: white;">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  Account
+                </a>
+              </li>
+              <li>
+                <a 
+                routerLink='/calendar'
+                routerLinkActive="activebutton" 
+                ariaCurrentWhenActive="page"
+                style="color: white;">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3M3 10h18M5 20h14a2 2 0 002-2V8H3v10a2 2 0 002 2z" />
+                  </svg>
+                  Calendar
+                </a>
+              </li>
+              <li>
+                <a style="color: white;">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm2 7h10M7 13h10M7 17h6" />
+                  </svg>
+                  Documentation
+                </a>
+              </li>
+            </ul>
+            <!-- Push items to the bottom -->
+            <div class="flex-grow"></div>
+            <div class="divider divider-neutral shadow-2xl"></div>
+      
+            <!-- User Info at the Bottom -->
+            <div class="flex justify-between items-center w-full px-1 py-2" >
+              <div class="flex justify-between flex items-center gap-2">
+                <div class="w-10 rounded-full overflow-hidden" >
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
+            
+                <span class="text-lg text-white" *ngIf="authenticationService.authenticated">
+                  {{ authenticationService.username }}
+                </span>
+              </div>
+            
+              <button class=" btn-square shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-[1.7em]" style="color: white;">
+                  <path stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m4.5-3h-9m0 0 3-3m-3 3 3 3" />
+                </svg>
+              </button>
+            </div>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex justify-center items-center">
+      <img class="h-12" src="assets/images/wight9albon.png" alt="">
+    </div>
+    
+    
+    <div class="flex gap-2">
+      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" style="background-color: white;" />
+
+      <div class="navbar-end">
+        <button class="btn btn-ghost btn-circle">
+          <div class="indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4.37-1.03L3 21l1.35-3.21A7.96 7.96 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <span class="badge badge-xs badge-primary indicator-item"></span>
+          </div>
+        </button>
+        
+        <button class="btn btn-ghost btn-circle">
+          <div class="indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /> </svg>
+            <span class="badge badge-xs badge-primary indicator-item"></span>
+          </div>
+        </button>
+        
+      </div>
+      <div class="dropdown dropdown-end">
+        
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+        </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow " style="background-color: #FFDDAE; color: black;" >
+          <li>
+            <a class="justify-between" >
+              Profile
+            </a>
+          </li>
+          <li><a>Settings</a></li>
+          <li>Logout</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Navigation Toggle -->
+  <div class="lg:hidden py-16 text-center">
+    <button type="button" class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-start bg-gray-800 border border-gray-800 text-white text-sm font-medium rounded-lg shadow-2xs align-middle hover:bg-gray-950 focus:outline-hidden focus:bg-gray-900 dark:bg-white dark:text-neutral-800 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-sidebar-footer" aria-label="Toggle navigation" data-hs-overlay="#hs-sidebar-footer">
+      Open
+    </button>
+  </div>
+  <!-- End Navigation Toggle -->
+  
+  
+     
+  
+  
+    
+  
+  
+  
+  
+  

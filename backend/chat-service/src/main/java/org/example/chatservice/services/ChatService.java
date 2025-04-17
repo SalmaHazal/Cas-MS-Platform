@@ -23,15 +23,15 @@ public class ChatService {
     private final ChatMapper mapper;
 
     @Transactional(readOnly = true)
-    public List<ChatResponse> getChatsByReceiverId(Authentication currentUser) {
-        final String userId = currentUser.getName();
+    public List<ChatResponse> getChatsByReceiverId(Long currentUserId) {
+        final Long userId = currentUserId;
         return chatRepository.findChatBySenderId(userId)
                 .stream()
                 .map(c -> mapper.toChatResponse(c, userId))
                 .toList();
     }
 
-    public String createChat(String senderId, String receiverId) {
+    public String createChat(Long senderId, Long receiverId) {
         Optional<Chat> existingChat = chatRepository.findChatByReceiverAndSender(senderId, receiverId);
         if (existingChat.isPresent()) {
             return existingChat.get().getId();

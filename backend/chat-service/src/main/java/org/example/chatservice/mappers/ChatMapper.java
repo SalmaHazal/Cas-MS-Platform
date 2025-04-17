@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChatMapper {
-    public ChatResponse toChatResponse(Chat chat, String senderId) {
+    public ChatResponse toChatResponse(Chat chat, Long senderId) {
         return ChatResponse.builder()
                 .id(chat.getId())
                 .name(chat.getChatName(senderId))

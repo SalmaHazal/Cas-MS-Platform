@@ -41,9 +41,10 @@ public class Message extends BaseAuditingEntity {
     private Chat chat;
 
     @Column(name = "sender_id", nullable = false)
-    private String senderId;
+    private Long senderId;
 
     @Column(name = "receiver_id", nullable = false)
-    private String receiverId;
+    private Long receiverId;
+
     private String mediaFilePath;
 }

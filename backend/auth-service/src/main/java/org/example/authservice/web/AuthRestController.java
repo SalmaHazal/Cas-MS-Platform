@@ -3,6 +3,7 @@ package org.example.authservice.web;
 import jakarta.validation.Valid;
 import org.example.authservice.dtos.LoginRequest;
 import org.example.authservice.dtos.RegisterRequest;
+import org.example.authservice.repository.UserRepository;
 import org.example.authservice.services.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 public class AuthRestController {
+    private final UserRepository userRepository;
     public AuthService authService;
 
-    public AuthRestController(AuthService authService) {
+    public AuthRestController(AuthService authService, UserRepository userRepository) {
         this.authService = authService;
-    }
-
-    @GetMapping("/profile")
-    public ResponseEntity<String> authentication(Authentication authentication) {
-        return ResponseEntity.ok(authentication.getName());
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/login")
@@ -43,4 +41,13 @@ public class AuthRestController {
         );
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<Long> authentication(Authentication authentication) {
+        String userEmail = authentication.getName();
+        return userRepository.findByEmail(userEmail)
+                .map(user -> ResponseEntity.ok(user.getId()))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
