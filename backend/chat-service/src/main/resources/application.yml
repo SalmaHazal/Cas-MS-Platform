@@ -1,9 +1,9 @@
 spring:
   application:
-    name: chat-service
     file:
       uploads:
-        media-output.path: ./uploads
+        media-output-path: ./uploads
+    name: chat-service
 
 
   datasource:

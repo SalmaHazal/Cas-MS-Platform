@@ -9,6 +9,5 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-
  
 }

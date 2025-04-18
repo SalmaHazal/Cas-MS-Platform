@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,7 +11,7 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent implements OnInit{
   sMenuOpen = false;
  
-  constructor(public authenticationService: AuthenticationService){}
+  constructor(){}
   toggleMenu() {
     this.sMenuOpen = !this.sMenuOpen;
   }

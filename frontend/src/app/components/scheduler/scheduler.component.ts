@@ -4,7 +4,6 @@ import { DataService, ExtendedEventData } from './data.service';
 import ExcelJS from 'exceljs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'scheduler-component',
@@ -142,7 +141,7 @@ export class SchedulerComponent implements AfterViewInit, OnInit {
     event: null as any
   };
 
-  constructor(private ds: DataService, public authenticationService: AuthenticationService) { }
+  constructor(private ds: DataService) { }
 
   ngOnInit(): void {
     window.addEventListener('click', () => {
