@@ -1,0 +1,52 @@
+<section class="relative block py-24 lg:pt-0 bg-blueGray-800">
+    <div class="container mx-auto px-4">
+      <!-- Section Title -->
+      <div class="flex flex-wrap justify-center text-center mb-12">
+        <div class="w-full lg:w-6/12 px-4">
+          <h2 class="text-4xl text-[#0dcaf0] font-semibold">Our Sponsors</h2> 
+          <p class="text-lg leading-relaxed mt-4 text-blueGray-200">
+            Thanks to our sponsors, we can bring impactful social initiatives to life and organize large-scale events.
+          </p>
+        </div>
+      </div>
+  
+      <!-- Sponsors Grid with Pagination Buttons -->
+      <div class="flex flex-wrap justify-center relative">
+        <!-- Left Pagination Button -->
+        <button (click)="previousPage()" 
+                class="absolute left-0 top-1/2 transform -translate-y-1/2 btn px-4 py-2 rounded bg-[#0dcaf0] text-white hover:bg-[#1789b0] transition duration-300"
+                [disabled]="currentPage === 1">
+          &#9665; <!-- Flèche gauche -->
+        </button>
+  
+        <!-- Sponsors Cards -->
+        <div *ngFor="let association of associationsPaginated" class="my-4 w-full sm:w-6/12 md:w-4/12 lg:w-3/12 xl:w-3/12 px-4">
+          <a [href]="association.link" target="_blank">
+            <div class="bg-[#f0f6ff] shadow-lg rounded-lg text-center p-8 transition transform hover:scale-105 duration-300">
+              <img
+                alt="Association Logo"
+                class="shadow-md rounded-full max-w-full w-24 mx-auto p-2 bg-white"
+                [src]="association.image"
+              />
+              <p class="text-lg text-blueGray-800 mt-4 font-semibold">{{ association.name }}</p>
+            </div>
+          </a>
+        </div>
+  
+        <!-- Right Pagination Button -->
+        <button (click)="nextPage()" 
+                class="absolute right-0 top-1/2 transform -translate-y-1/2 btn px-4 py-2 rounded bg-[#0dcaf0] text-white hover:bg-[#1789b0] transition duration-300"
+                [disabled]="currentPage === totalPages">
+          &#9655; <!-- Flèche droite -->
+        </button>
+      </div>
+  
+      <!-- Become a Partner Button -->
+      <div class="flex justify-center mt-12">
+        <a href="#"
+           class="inline-block bg-[#0dcaf0] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#1789b0] transition duration-300">
+           <i class="fas fa-handshake mr-2"></i> Become a Partner
+        </a>
+      </div>
+    </div>
+  </section>
