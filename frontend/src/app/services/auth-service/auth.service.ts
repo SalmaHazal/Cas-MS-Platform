@@ -13,7 +13,9 @@ export class AuthService {
   public roles: any;
   public accessToken!: string;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {
+    this.loadJwtTokenFromLocalStorage();
+  }
 
   public register(
     fullName: string,
@@ -66,9 +68,30 @@ export class AuthService {
 
   loadJwtTokenFromLocalStorage() {
     const token = window.localStorage.getItem('jwt-token');
+
     if (token) {
-      this.loadProfile({ 'access-token': token });
-      this.router.navigateByUrl('/admin');
+      const isValid = this.validateToken(token);
+
+      if (isValid) {
+        this.loadProfile({ 'access-token': token });
+        this.router.navigateByUrl('/admin');
+      } else {
+        window.localStorage.removeItem('jwt-token');
+        this.router.navigateByUrl('/login');
+      }
+    } else {
+      this.router.navigateByUrl('/login');
+    }
+  }
+
+  validateToken(token: string): boolean {
+    try {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decodedToken.exp > currentTime;
+    } catch (error) {
+      console.error('Invalid token format', error);
+      return false;
     }
   }
 
