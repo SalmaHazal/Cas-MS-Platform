@@ -12,11 +12,15 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
 
     private final SimpMessagingTemplate messagingTemplate;
+    private final UserService userService;
 
     public void sendNotification(Long userId, Notification notification) {
-        log.info("Sending ws notification to {} with payload {}", userId, notification);
+
+        String email = userService.getEmailById(userId);
+        log.info("Sending ws notification to {} with payload {}", email, notification);
+
         messagingTemplate.convertAndSendToUser(
-                String.valueOf(userId),
+                email,
                 "/chat",
                 notification);
     }

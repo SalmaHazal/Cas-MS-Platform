@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth-service/auth.service';
 import { MessageRequest } from './../../chatServices/models/message-request';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ChatResponse, MessageResponse } from '../../chatServices/models';
@@ -17,13 +17,14 @@ import { Notification } from './notification';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   chats: Array<ChatResponse> = [];
   selectedChat: ChatResponse = {};
   chatMessages: MessageResponse[] = [];
   messageContent = '';
   userId: any;
   socketClient: any = null;
+  @ViewChild('scrollableDiv') scrollableDiv!: ElementRef<HTMLDivElement>;
   notificationSubscription: any;
 
   constructor(
@@ -32,6 +33,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private authService: AuthService
   ) {}
+
+  ngAfterViewChecked(): void {
+    this.scrollBottom();
+  }
+
+  scrollBottom() {
+    if (this.scrollableDiv) {
+      const div = this.scrollableDiv.nativeElement;
+      div.scrollTop = div.scrollHeight;
+    }
+  }
 
   ngOnDestroy(): void {
     if (this.socketClient !== null) {
@@ -50,16 +62,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.authService.email) {
       let ws = new SockJS('http://localhost:8082/ws');
       this.socketClient = Stomp.over(ws);
-      const userIdString = this.userId.toString();
-      const subUrl = `/user/${userIdString}/chat`;
-      this.socketClient.connect({'Authorization': 'Bearer ' + this.authService.accessToken},
+      this.socketClient.connect({},
         () => {
           console.log('WebSocket connected');
-          this.notificationSubscription = this.socketClient.subscribe(subUrl,
+          this.notificationSubscription = this.socketClient.subscribe(`/user/${this.authService.email}/chat`,
             (message: any) => {
               console.log('Message received:', message.body);
-              const notification: Notification = JSON.parse(message.body);
-              this.handleNotification(notification);
+              // const notification: Notification = JSON.parse(message.body);
+              // this.handleNotification(notification);
             },
             (error: any) => {
               console.error('Error while subscribing:', error);
@@ -179,35 +189,43 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   uploadMedia(target: EventTarget | null) {
-    // const file = this.extractFileFromTarget(target);
-    // if (file !== null) {
-    //   const reader = new FileReader();
-    //   reader.onload = () => {
-    //     if (reader.result) {
-    //       const mediaLines = reader.result.toString().split(',')[1];
-    //       this.messageService.uploadMedia({
-    //         'chat-id': this.selectedChat.id as string,
-    //         body: {
-    //           file: file
-    //         }
-    //       }).subscribe({
-    //         next: () => {
-    //           const message: MessageResponse = {
-    //             senderId: this.getSenderId(),
-    //             receiverId: this.getReceiverId(),
-    //             content: 'Attachment',
-    //             type: 'IMAGE',
-    //             state: 'SENT',
-    //             media: [mediaLines],
-    //             createdAt: new Date().toString()
-    //           };
-    //           this.chatMessages.push(message);
-    //         }
-    //       });
-    //     }
-    //   }
-    //   reader.readAsDataURL(file);
-    // }
+    const file = this.extractFileFromTarget(target);
+    if (file !== null) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          const mediaLines = reader.result.toString().split(',')[1];
+          this.messageService.uploadMedia({
+            'chat-id': this.selectedChat.id as string,
+            body: {
+              file: file
+            }
+          }).subscribe({
+            next: () => {
+              const message: MessageResponse = {
+                senderId: this.getSenderId(),
+                receiverId: this.getReceiverId(),
+                content: 'Attachment',
+                type: 'IMAGE',
+                state: 'SENT',
+                media: [mediaLines],
+                createdAt: new Date().toString()
+              };
+              this.chatMessages.push(message);
+            }
+          });
+        }
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  private extractFileFromTarget(target: EventTarget | null): File | null {
+    const htmlInputTarget = target as HTMLInputElement;
+    if (target === null || htmlInputTarget.files === null) {
+      return null;
+    }
+    return htmlInputTarget.files[0];
   }
 
   keyDown(event: KeyboardEvent) {
