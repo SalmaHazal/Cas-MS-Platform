@@ -6,14 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           progressBar: true,
           closeButton: true,
         });
-        this.router.navigateByUrl('/admin');
+        this.router.navigateByUrl('/app');
       },
       error: (err) => {
         console.error('Login Error:', err);
