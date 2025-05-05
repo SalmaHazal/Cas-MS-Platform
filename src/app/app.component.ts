@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import {SchedulerComponent} from './scheduler/scheduler.component';
-import {CommonModule} from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
+  imports: [RouterModule],
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  title = 'frontend';
 }

@@ -1,0 +1,232 @@
+<div class="bg-white shadow-xl border-b border-gray-200">
+  <div class="max-w-5xl mx-auto flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <img src="assets/images/logo.png" alt="Logo" class="h-20 mt-[-25px]" />
+      <span class="text-[#0dcaf0] text-xl font-semibold">Welcome To CAS</span>
+    </div>
+
+    <div>
+      <img src="assets/images/CAS_9albon.png" alt="Logo" class="h-20" />
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center items-center min-h-screen bg-white">
+  <div class="w-full max-w-5xl bg-white p-8 rounded-lg shadow-xl">
+    <h2 class="text-center text-3xl font-semibold text-[#0dcaf0] mb-6">
+      Sign Up
+    </h2>
+
+    <form class="space-y-6" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="fullName" class="block text-sm font-medium text-gray-700"
+            >Full Name</label
+          >
+          <input
+            formControlName="fullName"
+            id="fullName"
+            type="text"
+            placeholder="Example: John Doe"
+            class="w-full p-3 border border-gray-300 rounded-md"
+            required
+          />
+          <div
+            *ngIf="
+              signUpForm.get('fullName')?.invalid &&
+              signUpForm.get('fullName')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small
+              *ngIf="signUpForm.get('fullName')?.errors?.['required']"
+              class="block"
+            >
+              Full Name is required
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            formControlName="email"
+            id="email"
+            type="email"
+            placeholder="Example: john.doe@gmail.com"
+            class="w-full p-3 border border-gray-300 rounded-md"
+            required
+          />
+          <div
+            *ngIf="
+              signUpForm.get('email')?.invalid &&
+              signUpForm.get('email')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small
+              *ngIf="signUpForm.get('email')?.errors?.['required']"
+              class="block"
+            >
+              Email is required
+            </small>
+            <small *ngIf="signUpForm.get('email')?.errors?.['email']"
+              >Invalid email format</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Password and Confirm Password Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            formControlName="password"
+            id="password"
+            type="password"
+            placeholder="Example: 12345678"
+            class="w-full p-3 border border-gray-300 rounded-md"
+            required
+          />
+          <div
+            *ngIf="
+              signUpForm.get('password')?.invalid &&
+              signUpForm.get('password')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small
+              *ngIf="signUpForm.get('password')?.errors?.['required']"
+              class="block"
+            >
+              Password is required
+            </small>
+            <small *ngIf="signUpForm.get('password')?.errors?.['minlength']"
+              >Password must be at least 6 characters</small
+            >
+          </div>
+        </div>
+
+        <div>
+          <label
+            for="confirmPassword"
+            class="block text-sm font-medium text-gray-700"
+            >Confirm Password</label
+          >
+          <input
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            type="password"
+            placeholder="Example: 12345678"
+            class="w-full p-3 border border-gray-300 rounded-md"
+            required
+          />
+          <div
+            *ngIf="
+              signUpForm.hasError('mismatch') &&
+              signUpForm.get('confirmPassword')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small>Passwords do not match</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gender Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="gender" class="block text-sm font-medium text-gray-700"
+            >Gender</label
+          >
+          <select
+            formControlName="gender"
+            id="gender"
+            class="w-full p-3 border border-gray-300 rounded-md"
+            required
+          >
+            <option value="" disabled selected>Select a gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <div
+            *ngIf="
+              signUpForm.get('gender')?.invalid &&
+              signUpForm.get('gender')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small
+              *ngIf="signUpForm.get('gender')?.errors?.['required']"
+              class="block"
+            >
+              Gender is required
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <label class="block text-lg font-semibold text-[#0dcaf0]">
+          What does HAYAT represent for INPT Students?
+        </label>
+        <div class="mt-4">
+          <select
+            formControlName="question"
+            id="question"
+            class="w-full h-10 px-4 text-sm text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#0dcaf0] focus:border-[#0dcaf0]"
+          >
+            <option value="" disabled selected>Answer the question</option>
+            <option value="Special Class">A special building</option>
+            <option value="Director of INPT">The Director of INPT</option>
+            <option value="Water Fountain">A water fountain</option>
+          </select>
+          <div
+            *ngIf="
+              signUpForm.get('question')?.invalid &&
+              signUpForm.get('question')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small
+              *ngIf="signUpForm.get('question')?.errors?.['required']"
+              class="block"
+            >
+              This question is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center mt-6">
+        <button
+          type="submit"
+          [disabled]="signUpForm.invalid"
+          [ngClass]="{
+            'bg-[#0dcaf0]': !signUpForm.invalid,
+            'bg-gray-400 cursor-not-allowed': signUpForm.invalid,
+            'hover:bg-[#0db7d0]': !signUpForm.invalid,
+            'transition duration-300': true
+          }"
+          class="w-full text-white py-3 px-6 rounded-lg"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+
+    <!-- Login Link -->
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-600">
+        Already have an account?
+        <a href="/login" class="text-[#0dcaf0] hover:underline">Login</a>
+      </p>
+    </div>
+  </div>
+</div>

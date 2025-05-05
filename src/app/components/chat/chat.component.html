@@ -1,0 +1,152 @@
+<app-navbar></app-navbar>
+
+<div class="main-container flex">
+  <div class="flex w-full">
+    <div class="w-1/4 overflow-y-scroll">
+      <app-chat-list
+        [chats]="chats"
+        (chatSelected)="chatSelected($event)"
+      ></app-chat-list>
+    </div>
+
+    @if (selectedChat.id) {
+    <div class="w-3/4 h-full">
+      <div class="flex flex-col justify-between h-full">
+        <div class="bg-gray-100 p-2 flex items-center gap-4">
+          <!-- User Image -->
+          <div class="user-img w-12 h-12">
+            <img
+              src="assets/images/user.png"
+              alt="User"
+              class="rounded-full w-full h-full object-cover"
+            />
+          </div>
+          <!-- User Details -->
+          @if (selectedChat) {
+          <div class="flex flex-col">
+            <span class="font-[600] text-lg">{{ selectedChat.name }}</span>
+            <div class="flex gap-2 items-center text-sm text-gray-600">
+              @if (selectedChat.recipientOnline) {
+              <small
+                class="online-status w-2 h-2 bg-green-500 rounded-full"
+              ></small>
+              <small>Online</small>
+              } @else {
+              <small
+                class="offline-status w-2 h-2 bg-red-500 rounded-full"
+              ></small>
+              <small>Offline</small>
+              }
+            </div>
+          </div>
+          }
+        </div>
+
+        <div
+          #scrollableDiv
+          class="h-full bg-chat p-3 overflow-y-scroll"
+          style="background-image: url('assets/images/wa_bg.png')"
+        >
+          @for (message of chatMessages; track message) { @if
+          (isSelfMessage(message)) {
+          <div class="message-box self">
+            <div class="flex flex-col">
+              @if (message.type === 'TEXT') {
+              <span class="message-text">{{ message.content }}</span>
+              } @else if (message.media) {
+              <img
+                width="200"
+                class="cursor-pointer"
+                [src]="'data:image/jpg;base64,' + message.media"
+                alt=""
+              />
+              }
+              <small class="text-black opacity-50">
+                {{ message.createdAt | date : "HH:mm" }}&nbsp; @if
+                (message.state === 'SENT') {
+                <span>
+                  <i class="fas fa-check seen"></i>
+                </span>
+                } @else {
+                <span>
+                  <i class="fas fa-check seen"></i>
+                  <i class="fas fa-check seen ml-neg"></i>
+                </span>
+                }
+              </small>
+            </div>
+          </div>
+          } @else {
+          <div class="message-box friend">
+            <div class="flex flex-col items-end">
+              @if (message.type === 'TEXT') {
+              <span class="message-text">{{ message.content }}</span>
+              } @else if (message.media) {
+              <img
+                width="200"
+                class="cursor-pointer"
+                [src]="'data:image/jpg;base64,' + message.media"
+                alt=""
+              />
+              }
+              <small class="text-black opacity-50">{{
+                message.createdAt | date : "HH:mm"
+              }}</small>
+            </div>
+          </div>
+          } }
+        </div>
+
+        <div class="bg-gray-100 p-3 rounded-lg shadow-md">
+          <div class="flex items-center gap-3">
+            <!-- Attachment Icon -->
+            <i
+              class="fas fa-paperclip cursor-pointer text-gray-500 hover:text-gray-700 text-lg"
+              (click)="inputFile.click()"
+            ></i>
+
+            <!-- Hidden File Input -->
+            <input
+              #inputFile
+              type="file"
+              [hidden]="true"
+              accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3"
+              (change)="uploadMedia($event.target)"
+            />
+
+            <!-- Text Input -->
+            <input
+              type="text"
+              class="w-full py-2 px-4 bg-gray-100 focus:outline-none text-sm placeholder-gray-400"
+              placeholder="Type a message..."
+              [(ngModel)]="messageContent"
+              (keydown)="keyDown($event)"
+              (click)="onClick()"
+            />
+
+            <!-- Conditional Icons -->
+            @if (messageContent) {
+            <i
+              class="fa fa-paper-plane cursor-pointer text-blue-500 hover:text-blue-700 text-lg"
+              (click)="sendMessage()"
+            ></i>
+            } @else {
+            <i
+              class="fa fa-microphone cursor-pointer text-gray-500 hover:text-gray-700 text-lg"
+            ></i>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    } @else {
+    <div
+      class="flex flex-col justify-center items-center h-full w-3/4 bg-chat"
+      style="background-image: url('assets/images/wa_bg.png')"
+    >
+      <i class="fa fa-user fa-3x opacity-50 mb-10" aria-hidden="true"></i>
+      <h2 class="text-black opacity-50">No Chat Selected</h2>
+    </div>
+    }
+  </div>
+</div>
