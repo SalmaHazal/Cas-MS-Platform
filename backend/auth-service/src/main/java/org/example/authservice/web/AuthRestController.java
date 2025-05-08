@@ -6,9 +6,11 @@ import org.example.authservice.dtos.RegisterRequest;
 import org.example.authservice.repository.UserRepository;
 import org.example.authservice.services.AuthService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -29,9 +31,9 @@ public class AuthRestController {
         return ResponseEntity.ok(response);
     }
 
-//    @PostMapping(path = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody RegisterRequest request) {
+    @PostMapping(path = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    @PostMapping("/register")
+    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody RegisterRequest request, @RequestParam MultipartFile file) {
         Map<String, Object> response = authService.register(
                 request.getFullName(),
                 request.getEmail(),

@@ -1,0 +1,37 @@
+
+
+<div class="app-wrapper ">
+    
+    <div class="position-relative">
+      <app-sidebar
+        [isSidebarCollapsed]="isSidebarCollapsed"
+        (sidebarToggle)="onSidebarToggle()"
+      >
+      </app-sidebar>
+      
+      <button
+        class="sidebar-toggle-btn"
+        [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }"
+        (click)="onSidebarToggle()"
+      >
+        <!-- Font Awesome Arrow Icon -->
+        <i class="fas fa-bars"></i>
+  
+        <!-- Optional: Hamburger SVG Icon -->
+        
+      </button>
+      
+    </div>
+    
+    <main class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+        <app-navbar class="navbar">
+        </app-navbar>
+      <div class="content-inner">
+       
+        <router-outlet></router-outlet>
+        </div>
+    </main>
+  </div>
+  
+    
+

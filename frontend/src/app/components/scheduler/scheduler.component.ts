@@ -4,56 +4,48 @@ import { DataService, ExtendedEventData } from './data.service';
 import ExcelJS from 'exceljs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+//import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'scheduler-component',
   standalone: true,
   styles: [`
     ::ng-deep .scheduler_default_mainheader {
-      background-color: #FFF1D5 !important;  /* Main header background */
+      background-color: #FFF1D5 !important;
       color: #000 !important;
       font-weight: bold;
       font-size: 14px;
     }
-    
     ::ng-deep .custom-cell {
-      background-color: #FFE5B4 !important;  /* Day cells */
+      background-color: #FFE5B4 !important;
       border-right: 1px solid #facc15 !important;
       color: #333 !important;
       text-align: center;
     }
-    
-    ::ng-deep .scheduler_default_rowheader {
-      background-color: #FFF1D5 !important;
-    }
-    
+    ::ng-deep .scheduler_default_rowheader,
     ::ng-deep .scheduler_default_corner {
       background-color: #FFF1D5 !important;
-    
     }
-      ::ng-deep .main-header-month {
-  background-color: #FFF1D5 !important;
-  font-weight: bold;
-  font-size: 13px;
-  color: #111;
-  border-bottom: 1px solid #facc15;
-}
-
-::ng-deep .main-header-day {
-  background-color: #FFF1D5  !important;
-  font-size: 14px;
-  color: #333;
-}
-      
-    `],
+    ::ng-deep .main-header-month {
+      background-color: #FFF1D5 !important;
+      font-weight: bold;
+      font-size: 13px;
+      color: #111;
+      border-bottom: 1px solid #facc15;
+    }
+    ::ng-deep .main-header-day {
+      background-color: #FFF1D5 !important;
+      font-size: 14px;
+      color: #333;
+    }
+  `],
   imports: [DayPilotModule, FormsModule, CommonModule],
   providers: [DataService],
   template: `
-    <div class="mb-4 flex items-center gap-2 p-4  rounded-box shadow z-10" style="background-color: #FFDDAE;">
+    <div class="mb-4 flex items-center gap-2 p-4 rounded-box shadow z-10" style="background-color: #37AFE1;">
       <input class="input input-bordered w-60 bg-white text-black" type="text" placeholder="Filename" [(ngModel)]="filename" />
       <button class="btn btn-neutral border-gray-300 bg-white text-black" (click)="exportToExcel()">Export</button>
-      <button (click)="openDialog()" class="btn btn-wide ml-auto bg-white text-black border border-gray-300 hover:bg-gray-100" style="background-color: #FBFBFB;"  (click)="addNewActivity()">Add Activity</button>
-      
+      <button (click)="openDialog()" class="btn btn-wide ml-auto bg-white text-black border border-gray-300 hover:bg-gray-100" style="background-color: #FBFBFB;" >Add Activity</button>
     </div>
 
     <div #schedulerWrapper class="relative">
@@ -67,21 +59,18 @@ import { CommonModule } from '@angular/common';
       <div *ngIf="contextMenu.visible" class="dropdown dropdown-open absolute z-50"
            [ngStyle]="{'top.px': contextMenu.y, 'left.px': contextMenu.x}">
         <ul class="menu bg-base-100 rounded-box w-40 shadow">
-          <li><a (click)="editEvent(contextMenu.event)">✏️ Edit</a></li>
+          <li><a  (click)="editEvent(contextMenu.event)">✏️ Edit</a></li>
           <li><a class="text-error"  (click)="deleteEvent(contextMenu.event)">🗑️ Delete</a></li>
-          <li><a  (click)="showEventDescription(contextMenu.event.description)">💬 Show Desc</a></li>
-          <li><a  (click)="editEvent(contextMenu.event)">💬 Reserver</a></li>
+          <li><a (click)="showEventDescription(contextMenu.event.description)">💬 Show Desc</a></li>
+          <li><a (click)="editEvent(contextMenu.event)">💬 Reserver</a></li>
         </ul>
       </div>
     </div>
-     
+
     <dialog #activityDialog class="modal" >
       <div class="modal-box">
         <h3 class="font-bold text-lg mb-2">Add New Activity</h3>
-
         <input [(ngModel)]="newActivityData.text" class="input input-bordered w-full mb-2" placeholder="Activity Name" />
-        <label class="label">Choose a color:</label>
-       
         <div class="modal-action">
           <button class="btn btn-success" (click)="addNewActivity()">Create</button>
           <button class="btn btn-ghost" (click)="cancelActivity()">Cancel</button>
@@ -89,17 +78,13 @@ import { CommonModule } from '@angular/common';
       </div>
     </dialog>
 
-    <dialog #eventDialog class="modal">
+    <dialog #eventDialog class="modal" >
       <div class="modal-box">
         <h3 class="font-bold text-lg mb-2">Create a New Event</h3>
-
         <input [(ngModel)]="newEventData.text" class="input input-bordered w-full mb-2" placeholder="Event title" />
-
         <textarea [(ngModel)]="newEventData.description" class="textarea textarea-bordered w-full mb-2" placeholder="Event description"></textarea>
-
         <label class="label">Choose a color:</label>
         <input [(ngModel)]="newEventData.color" type="color" class="input w-20 h-10 p-0 border-0 cursor-pointer mb-4" />
-
         <div class="modal-action">
           <button class="btn btn-success" (click)="confirmEvent()">Create</button>
           <button class="btn btn-ghost" (click)="cancelEvent()">Cancel</button>
@@ -107,15 +92,50 @@ import { CommonModule } from '@angular/common';
       </div>
     </dialog>
 
+  
+   <dialog #editTextDialog class="modal" >
+  <div class="modal-box">
+    <h3 class="font-bold text-lg mb-4">
+      
+    </h3>
+    
+    <input [(ngModel)]="editText" class="input input-bordered w-full mb-4"
+      
+    />
+    
+    <div class="modal-action"  >
+      <button  class="btn btn-success" (click)="confirmEdit()" >
+        
+      </button>
+      <button class="btn btn-ghost" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+</dialog>
+
+
+    <dialog #descriptionDialog class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg mb-2">Event Description:</h3>
+    <p class="whitespace-pre-wrap">{{ selectedDescription }}</p>
+
+    <div class="modal-action">
+      <button class="btn btn-primary" (click)="cancelShowdescription()">Close</button>
+    </div>
+  </div>
+  </dialog>
+
   `
 })
 export class SchedulerComponent implements AfterViewInit, OnInit {
 
-  filename: string = "scheduler.xlsx";
+  filename = 'scheduler.xlsx';
+
   @ViewChild('scheduler', { static: true }) scheduler!: DayPilotSchedulerComponent;
   @ViewChild('schedulerWrapper', { static: true }) schedulerWrapper!: ElementRef;
   @ViewChild('eventDialog') eventDialog!: ElementRef<HTMLDialogElement>;
   @ViewChild('activityDialog') activityDialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('editTextDialog') editTextDialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('descriptionDialog') descriptionDialogRef!: ElementRef<HTMLDialogElement>;
 
   events: DayPilot.EventData[] = [];
 
@@ -127,12 +147,8 @@ export class SchedulerComponent implements AfterViewInit, OnInit {
     description: '',
     color: '#60a5fa'
   };
-
-  newActivityData = {
-    
-    text: ''
-    
-  };
+  selectedDescription: string = '';
+  newActivityData = { text: '' };
 
   contextMenu = {
     visible: false,
@@ -141,62 +157,60 @@ export class SchedulerComponent implements AfterViewInit, OnInit {
     event: null as any
   };
 
-  constructor(private ds: DataService) { }
+  editText: string = '';
+
+  editEventRef: any = null;
+
+  constructor(private ds: DataService, /*public authenticationService: AuthenticationService*/) { }
 
   ngOnInit(): void {
     window.addEventListener('click', () => {
-      if (this.contextMenu.visible) {
-        this.contextMenu.visible = false;
-      }
+      this.contextMenu.visible = false;
+    });
+
+    this.ds.getResources().subscribe(result => {
+      this.config.resources = result;
+      this.scheduler.control.update();
     });
   }
 
   ngAfterViewInit(): void {
-  this.ds.getResources().subscribe(result => this.config.resources = result);
+    const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    this.scheduler.control.scrollTo(new DayPilot.Date(startOfMonth));
 
-  const currentDate = new Date();
-  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-  const dpStartOfMonth = new DayPilot.Date(startOfMonth);
-  this.scheduler.control.scrollTo(dpStartOfMonth);
+    const from = this.scheduler.control.visibleStart();
+    const to = this.scheduler.control.visibleEnd();
 
-  const from = this.scheduler.control.visibleStart();
-  const to = this.scheduler.control.visibleEnd();
+    this.ds.getEvents(from, to).subscribe(result => {
+      this.events = result;
 
-  // Load events from backend
-  this.ds.getEvents(from, to).subscribe(result => {
-    this.events = result;
-    
+      const testEvents = [
+        {
+          id: DayPilot.guid(),
+          text: "Planning Meeting",
+          start: "2025-04-15T10:00:00",
+          end: "2025-04-15T12:00:00",
+          resource: "R100",
+          description: "Discuss Q2 planning",
+          color: "#34d399"
+        },
+        {
+          id: DayPilot.guid(),
+          text: "Design Review",
+          start: "2025-04-16T14:00:00",
+          end: "2025-04-16T15:30:00",
+          resource: "R101",
+          description: "UI/UX updates",
+          color: "#60a5fa"
+        }
+      ];
 
-    // 👉 Optionally add static events for testing
-    const testEvents = [
-      {
-        id: DayPilot.guid(),
-        text: "Planning Meeting",
-        start: "2025-04-15T10:00:00",
-        end: "2025-04-15T12:00:00",
-        resource: "R100",
-        description: "Discuss Q2 planning",
-        color: "#34d399"
-      },
-      {
-        id: DayPilot.guid(),
-        text: "Design Review",
-        start: "2025-04-16T14:00:00",
-        end: "2025-04-16T15:30:00",
-        resource: "R101",
-        description: "UI/UX updates",
-        color: "#60a5fa"
+      for (const ev of testEvents) {
+        this.scheduler.control.events.add(ev);
+        this.ds.createEvent(ev).subscribe();
       }
-    ];
-
-    // Add each test event to the scheduler and send to DB
-    for (const ev of testEvents) {
-      this.scheduler.control.events.add(ev);
-      this.ds.createEvent(ev).subscribe();  // save to DB
-    }
-  });
-}
-
+    });
+  }
 
   config: DayPilot.SchedulerConfig = {
     timeHeaders: [{ groupBy: "Month" }, { groupBy: "Day", format: "d" }],
@@ -206,16 +220,11 @@ export class SchedulerComponent implements AfterViewInit, OnInit {
     durationBarVisible: true,
     treeEnabled: true,
     exceljs: ExcelJS,
-    
+
     onBeforeTimeHeaderRender: (args) => {
-      if (args.header.level === 0) {
-        args.header.cssClass = "main-header-month";
-      }
-      if (args.header.level === 1) {
-        args.header.cssClass = "main-header-day";
-      }
+      args.header.cssClass = args.header.level === 0 ? "main-header-month" : "main-header-day";
     },
-    
+
     onTimeRangeSelected: (args) => {
       this.newEventData = {
         start: args.start,
@@ -248,7 +257,7 @@ export class SchedulerComponent implements AfterViewInit, OnInit {
     onBeforeCellRender: args => {
       if (args.cell.resource === "summary") {
         const total = args.control.events.forRange(args.cell.start, args.cell.end);
-        args.cell.properties.text = total.length > 0 ? `${total.length}` : "";
+        args.cell.properties.text = total.length ? `${total.length}` : "";
         args.cell.properties.verticalAlignment = "center";
         args.cell.properties.horizontalAlignment = "center";
         args.cell.properties.backColor = "#d5e2fa";
@@ -262,87 +271,95 @@ export class SchedulerComponent implements AfterViewInit, OnInit {
       args.data.borderColor = data.color || "#60a5fa";
       args.data.fontColor = "#ffffff";
       args.data.toolTip = `${data.text}\n${data['description'] || ''}`;
-
       args.data.cssClass = "cursor-pointer rounded-md px-1";
     }
   };
 
   confirmEvent() {
-    const { start, end, resource, text, description, color } = this.newEventData;
-  
-    const startStr = new Date(start).toISOString();
-    const endStr = new Date(end).toISOString();   
     const newEvent = {
-      start: startStr,
-      end: endStr,
-      resource,
-      text,
+      ...this.newEventData,
       id: DayPilot.guid(),
-      description,
-      color
+      start: new Date(this.newEventData.start).toISOString(),
+      end: new Date(this.newEventData.end).toISOString()
     };
-    
     this.scheduler.control.events.add(newEvent);
     this.ds.createEvent(newEvent).subscribe();
     this.eventDialog.nativeElement.close();
   }
-  
+
   cancelActivity() {
     this.activityDialog.nativeElement.close();
   }
+
   cancelEvent() {
     this.eventDialog.nativeElement.close();
   }
 
   editEvent(event: any) {
     this.contextMenu.visible = false;
-    DayPilot.Modal.prompt("Update event text:", event.text).then(modal => {
-      if (!modal.canceled) {
-        event.text = modal.result;
-        this.scheduler.control.events.update(event);
-        this.ds.updateEvent(event).subscribe();
-      }
-    });
+    this.editText = event.text;
+    this.editEventRef = event;
+    this.editTextDialog.nativeElement.showModal();
+  }
+  
+
+  confirmEdit() {
+    if (this.editEventRef) {
+      this.editEventRef.text = this.editText;
+      this.scheduler.control.events.update(this.editEventRef);
+      this.ds.updateEvent(this.editEventRef).subscribe();
+      this.editTextDialog.nativeElement.close();
+    }
+    
+    this.editEventRef = null;
+  }
+
+  cancelEdit() {
+    this.editTextDialog.nativeElement.close();
+    this.editEventRef = null;
   }
 
   deleteEvent(event: any) {
     this.contextMenu.visible = false;
-    this.scheduler.control.events.remove(event);
+    this.scheduler.control.events.remove(event.id);
     this.ds.deleteEvent(event.id).subscribe();
   }
-  
+
   showEventDescription(description: string) {
-    // If there is a description, show it in an alert (you can customize this later)
-    if (description && description.trim() !== '') {
-      alert(`Event Description:\n${description}`);
-    } else {
-      alert('This event has no description.');
-    }
+    this.selectedDescription = description?.trim() || 'This event has no description.';
+    this.descriptionDialogRef.nativeElement.showModal();
+    //this.descriptionDialogRef.nativeElement.close();
   }
+
+  cancelShowdescription(){
+    this.descriptionDialogRef.nativeElement.close();
+  }
+  
+
   openDialog() {
-    const dialog = this.activityDialog.nativeElement;  // Access the native DOM element
-    dialog.showModal();  // Open the dialog
+    this.activityDialog.nativeElement.showModal();
   }
 
   addNewActivity() {
-    const generateRandomId = (): string => {
-      return 'ACT-' + Math.floor(10000 + Math.random() * 90000).toString();
-    };
-  
+    const generateRandomId = (prefix: string = 'ACT'): string => `${prefix}-${Math.floor(10000 + Math.random() * 90000)}`;
     const newId = generateRandomId();
-    const newChildren = [
-      { name: 'Design Cell', id: 'R100', capacity: 25 },
-      { name: ' Sponsoring Cell', id: 'R101', capacity: 25 },
-      { name: ' Media Cell', id: 'R102', capacity: 25 },
-      { name: ' Logistic Cell', id: 'R103', capacity: 25 },
-      { name: ' Redaction Cell', id: 'R104', capacity: 25 },
 
-    ];
-    this.ds.addResource(this.newActivityData.text, newId, newChildren).subscribe();
+    const newChildren = ['Design', 'Sponsoring', 'Media', 'Logistic', 'Redaction'].map(name => ({
+      name: `${name} Cell`, id: generateRandomId('R'), capacity: 25
+    }));
+
+    this.ds.addResource(this.newActivityData.text, newId, newChildren).subscribe(() => {
+      this.ds.getResources().subscribe(result => {
+        this.config.resources = result;
+        this.scheduler.control.update();
+        this.scheduler.control.scrollToResource(newId);
+      });
+    });
+
+    this.activityDialog.nativeElement.close();
   }
 
   exportToExcel(): void {
-    const options = { area: "full" };
-    this.scheduler.control.exportAs("xlsx", options).download(this.filename || "scheduler.xlsx");
+    this.scheduler.control.exportAs("xlsx", { area: "full" }).download(this.filename || "scheduler.xlsx");
   }
 }

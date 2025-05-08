@@ -1,0 +1,8 @@
+.scheduler-wrapper {
+  transition: opacity 0.3s ease;
+}
+
+.scheduler-wrapper.dimmed {
+  opacity: 0.4; /* Adjust to how dim you want it */
+  pointer-events: none; /* Optional: disable clicks */
+}

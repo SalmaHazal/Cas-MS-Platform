@@ -6,22 +6,24 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'calendar', component: CalendarComponent },
-  { path: 'chat', component: ChatComponent },
-  {
-    path: 'admin',
-    component: NavbarComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-      },
-    ],
-  },
+  
+  // { path: 'chat', component: ChatComponent },
+  
+  { path: 'app', component:AdminComponent, children : [
+    {path:'dashboard', component: DashboardComponent },
+    {path:'calendar', component: CalendarComponent},
+    {path:'chat', component: ChatComponent},
+    { path: 'profile', component: ProfileComponent },
+    //{path:'calendar', component: CalendarComponent },
+   // 
+    //
+]},
 ];
