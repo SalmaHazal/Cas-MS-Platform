@@ -61,7 +61,6 @@ export class AuthService {
     window.localStorage.setItem('jwt-token', this.accessToken);
   }
 
-
   logout() {
     this.isAuthenticated = false;
     this.accessToken = '';

@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   public profileForm!: FormGroup;
   public user: UserProfile | null = null;
   public isLoading: boolean = true;
+  profilePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private profileService: ProfileService,
@@ -34,11 +35,18 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUserDetails();
-    this.profileForm = this.fb.group({
-      fullName: '',
-      role: '',
-      password: ['', [Validators.minLength(6)]],
-    });
+    this.profileForm = this.fb.group(
+      {
+        fullName: '',
+        role: '',
+        password: ['', [Validators.minLength(6)]],
+        confirmPassword: '',
+        profilePicture: null,
+      },
+      {
+        validators: this.passwordMatchValidator,
+      }
+    );
 
     if (!this.user) {
       this.isLoading = true;
@@ -47,6 +55,12 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
       }, 1000);
     }
+  }
+
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 
   public fetchUserDetails() {
@@ -62,37 +76,59 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  onFileSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.profileForm.patchValue({ profilePicture: file });
+      this.profileForm.get('profilePicture')?.updateValueAndValidity();
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profilePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   updateProfile(): void {
     let fullName = this.profileForm.value.fullName;
     let functionality = this.profileForm.value.role;
     let password = this.profileForm.value.password;
+    let profilePicture = this.profileForm.value.profilePicture;
 
-    this.profileService.updateProfile(fullName, password, functionality).subscribe({
-      next: (data) => {
-        console.log('update Successful:', data);
-        this.toastr.success('Profile updated successfully.', '', {
-          timeOut: 5000,
-          progressBar: true,
-          closeButton: true,
-        });
-        this.fetchUserDetails();
-      },
-      error: (err) => {
-        console.error('update Error:', err);
-        if (err.status === 404) {
-          this.toastr.error('User not found. Please check your email.', '', {
+    this.profileService
+      .updateProfile(fullName, password, functionality, profilePicture)
+      .subscribe({
+        next: (data) => {
+          console.log('update Successful:', data);
+          this.toastr.success('Profile updated successfully.', '', {
             timeOut: 5000,
             progressBar: true,
             closeButton: true,
           });
-        } else {
-          this.toastr.error('An error occurred. Please try again later.', '', {
-            timeOut: 5000,
-            progressBar: true,
-            closeButton: true,
-          });
-        }
-      },
-    });
+          this.fetchUserDetails();
+        },
+        error: (err) => {
+          console.error('update Error:', err);
+          if (err.status === 404) {
+            this.toastr.error('User not found. Please check your email.', '', {
+              timeOut: 5000,
+              progressBar: true,
+              closeButton: true,
+            });
+          } else {
+            this.toastr.error(
+              'An error occurred. Please try again later.',
+              '',
+              {
+                timeOut: 5000,
+                progressBar: true,
+                closeButton: true,
+              }
+            );
+          }
+        },
+      });
   }
 }

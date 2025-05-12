@@ -74,19 +74,6 @@
           />
         </div>
 
-        <!-- Profile Image Upload -->
-        <div>
-          <label for="profileImage" class="block text-gray-700"
-            >Profile Image</label
-          >
-          <input
-            type="file"
-            id="profileImage"
-            accept="image/*"
-            class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
         <!-- Password -->
         <div>
           <label for="password" class="block text-gray-700">Password</label>
@@ -112,6 +99,67 @@
             </small>
           </div>
         </div>
+
+        <!-- Confirm Password -->
+        <div>
+          <label for="confirmPassword" class="block text-gray-700">Confirm Password</label>
+          <input
+            formControlName="confirmPassword"
+            type="password"
+            id="confirmPassword"
+            class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="********"
+          />
+          <div
+            *ngIf="
+              profileForm.hasError('mismatch') &&
+              profileForm.get('confirmPassword')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small>Passwords do not match</small>
+          </div>
+        </div>
+
+        <!-- Profile Image Upload -->
+        <div>
+        <label
+          for="profilePicture"
+          class="block text-gray-700"
+        >
+          Profile Picture
+        </label>
+        <div class="flex items-center space-x-4 mt-2">
+          <img
+            *ngIf="profilePreview"
+            [src]="profilePreview"
+            alt="Profile Preview"
+            class="h-20 w-20 rounded-full object-cover"
+          />
+          <input
+            type="file"
+            id="profilePicture"
+            (change)="onFileSelect($event)"
+            class="w-full p-2 border border-gray-300 rounded-md"
+            accept="image/*"
+            required
+          />
+        </div>
+        <div
+          *ngIf="
+            profileForm.get('profilePicture')?.invalid &&
+            profileForm.get('profilePicture')?.touched
+          "
+          class="mt-1 text-sm text-red-500 font-medium"
+        >
+          <small
+            *ngIf="profileForm.get('profilePicture')?.errors?.['required']"
+            class="block"
+          >
+            Profile picture is required
+          </small>
+        </div>
+      </div>
 
         <!-- Save Changes -->
         <div class="sm:col-span-2 text-right">

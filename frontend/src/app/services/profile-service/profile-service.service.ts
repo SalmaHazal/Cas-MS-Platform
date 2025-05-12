@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -12,13 +11,17 @@ export class ProfileService {
   public updateProfile(
     fullName: string,
     password: string,
-    functionality: string
+    functionality: string,
+    profilePicture: File
   ) {
-    const options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    };
-    const body = { fullName, password, functionality };
+    const formData = new FormData();
+    formData.append('fullName', fullName);
+    formData.append('password', password);
+    formData.append('functionality', functionality);
+    if (profilePicture) {
+      formData.append('file', profilePicture);
+    }
 
-    return this.http.patch(`${environment.backendHost}/update`, body, options);
+    return this.http.patch(`${environment.backendHost}/update`, formData);
   }
 }

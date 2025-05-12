@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.example.authservice.dtos.UpdateRequest;
 import org.example.authservice.repository.UserRepository;
 import org.example.authservice.services.UpdateService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -15,12 +18,16 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UpdateController {
 
-    private final UserRepository userRepository;
     private final UpdateService updateService;
 
-    @PatchMapping
-    public ResponseEntity<Map<String, String>> updateProfile(@RequestBody UpdateRequest request, Authentication authentication) {
-        Map<String, String> response = updateService.updateProfile(request.getFullName(), request.getPassword(), request.getFunctionality(), authentication);
+    @PatchMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Map<String, String>> updateProfile(
+            String fullName,
+            String password,
+            String functionality,
+            @RequestParam(required = false) MultipartFile file,
+            Authentication authentication) throws IOException {
+        Map<String, String> response = updateService.updateProfile(fullName, password, functionality, file, authentication);
         return ResponseEntity.ok(response);
     }
 }
