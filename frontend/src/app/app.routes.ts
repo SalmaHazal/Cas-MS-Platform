@@ -14,16 +14,14 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
-  
-  // { path: 'chat', component: ChatComponent },
-  
-  { path: 'app', component:AdminComponent, children : [
-    {path:'dashboard', component: DashboardComponent },
-    {path:'calendar', component: CalendarComponent},
-    {path:'chat', component: ChatComponent},
-    { path: 'profile', component: ProfileComponent },
-    //{path:'calendar', component: CalendarComponent },
-   // 
-    //
-]},
+  {
+    path: 'app',
+    component: AdminComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'calendar', component: CalendarComponent },
+      { path: 'chat', component: ChatComponent },
+      { path: 'profile', component: ProfileComponent },
+    ],
+  },
 ];

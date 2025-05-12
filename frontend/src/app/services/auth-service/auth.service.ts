@@ -22,18 +22,22 @@ export class AuthService {
     email: string,
     password: string,
     gender: string,
-    question: string
+    question: string,
+    functionality: string,
+    profilePicture: File
   ) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
+    const formData = new FormData();
+    formData.append('fullName', fullName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('gender', gender);
+    formData.append('question', question);
+    formData.append('functionality', functionality);
+    if (profilePicture) {
+      formData.append('file', profilePicture);
+    }
 
-    const body = { fullName, email, password, gender, question };
-
-    return this.http.post(`${environment.backendHost}/auth/register`, body, {
-      headers,
-    });
+    return this.http.post(`${environment.backendHost}/auth/register`, formData);
   }
 
   public login(email: string, password: string) {
@@ -56,6 +60,7 @@ export class AuthService {
     this.roles = decodedJwt['scope'];
     window.localStorage.setItem('jwt-token', this.accessToken);
   }
+
 
   logout() {
     this.isAuthenticated = false;

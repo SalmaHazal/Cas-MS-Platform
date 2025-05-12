@@ -19,7 +19,7 @@ public class UpdateService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Map<String, String> updateProfile(String fullName, String password, Authentication authentication) {
+    public Map<String, String> updateProfile(String fullName, String password, String functionality, Authentication authentication) {
         String email = authentication.getName();
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
@@ -31,6 +31,10 @@ public class UpdateService {
 
         if (fullName != null && !fullName.trim().isEmpty()) {
             user.setFullName(fullName);
+        }
+
+        if (functionality != null && !functionality.trim().isEmpty()) {
+            user.setFunctionality(functionality);
         }
 
         if (password != null && !password.trim().isEmpty()) {

@@ -169,6 +169,33 @@
             </small>
           </div>
         </div>
+        <div>
+          <label for="functionality" class="block text-sm font-medium text-gray-700"
+            >Functionality</label
+          >
+          <input
+            formControlName="functionality"
+            id="functionality"
+            placeholder="Example: Caravane Chief"
+            class="w-full p-3 border border-gray-300 rounded-md"
+            required
+          />
+          <div
+            *ngIf="
+              signUpForm.get('functionality')?.invalid &&
+              signUpForm.get('functionality')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small
+              *ngIf="signUpForm.get('functionality')?.errors?.['required']"
+              class="block"
+            >
+              Functionality is required
+            </small>
+          </div>
+        </div>
+        
       </div>
 
       <div class="mt-6">
@@ -200,6 +227,45 @@
               This question is required.
             </small>
           </div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <label
+          for="profilePicture"
+          class="block text-lg font-semibold text-[#0dcaf0]"
+        >
+          Profile Picture
+        </label>
+        <div class="flex items-center space-x-4 mt-2">
+          <img
+            *ngIf="profilePreview"
+            [src]="profilePreview"
+            alt="Profile Preview"
+            class="h-20 w-20 rounded-full object-cover"
+          />
+          <input
+            type="file"
+            id="profilePicture"
+            (change)="onFileSelect($event)"
+            class="w-full p-2 border border-gray-300 rounded-md"
+            accept="image/*"
+            required
+          />
+        </div>
+        <div
+          *ngIf="
+            signUpForm.get('profilePicture')?.invalid &&
+            signUpForm.get('profilePicture')?.touched
+          "
+          class="mt-1 text-sm text-red-500 font-medium"
+        >
+          <small
+            *ngIf="signUpForm.get('profilePicture')?.errors?.['required']"
+            class="block"
+          >
+            Profile picture is required
+          </small>
         </div>
       </div>
 

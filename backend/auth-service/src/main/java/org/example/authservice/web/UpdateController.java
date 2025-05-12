@@ -20,7 +20,7 @@ public class UpdateController {
 
     @PatchMapping
     public ResponseEntity<Map<String, String>> updateProfile(@RequestBody UpdateRequest request, Authentication authentication) {
-        Map<String, String> response = updateService.updateProfile(request.getFullName(), request.getPassword(), authentication);
+        Map<String, String> response = updateService.updateProfile(request.getFullName(), request.getPassword(), request.getFunctionality(), authentication);
         return ResponseEntity.ok(response);
     }
 }

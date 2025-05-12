@@ -7,7 +7,7 @@
       <!-- Profile Picture -->
       <div class="relative w-32 h-32 sm:mr-6">
         <img
-          src="assets/images/projet2.png"
+          [src]="`http://localhost:8081/profile-pictures/${user?.picturePath}`"
           alt="Profile Picture"
           class="rounded-full shadow-lg border-4 border-white w-32 h-32"
         />
@@ -16,10 +16,10 @@
       <!-- User Info -->
       <div class="flex-1">
         <h3 class="text-2xl font-semibold text-gray-800">
-          SALMA EL HAZAL
+          {{ user?.fullName }}
         </h3>
         <p class="mt-2 text-gray-500">
-          Project Manager - Orphan Project (CAS)
+          {{ user?.functionality }}
         </p>
       </div>
     </div>
@@ -45,15 +45,20 @@
       <h3 class="text-lg font-semibold text-gray-800 mb-4">
         Edit Your Profile
       </h3>
-      <form class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <form
+        class="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        [formGroup]="profileForm"
+        (ngSubmit)="updateProfile()"
+      >
         <!-- Full Name -->
         <div>
           <label for="fullName" class="block text-gray-700">Full Name</label>
           <input
+            formControlName="fullName"
             type="text"
             id="fullName"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value="Naima El Maalmi"
+            value="{{ user?.fullName }}"
           />
         </div>
 
@@ -61,10 +66,11 @@
         <div>
           <label for="role" class="block text-gray-700">Role</label>
           <input
+            formControlName="role"
             type="text"
             id="role"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value="Project Manager"
+            value="{{ user?.functionality }}"
           />
         </div>
 
@@ -85,17 +91,39 @@
         <div>
           <label for="password" class="block text-gray-700">Password</label>
           <input
+            formControlName="password"
             type="password"
             id="password"
             class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="********"
           />
+          <div
+            *ngIf="
+              profileForm.get('password')?.invalid &&
+              profileForm.get('password')?.touched
+            "
+            class="mt-1 text-sm text-red-500 font-medium"
+          >
+            <small *ngIf="profileForm.get('password')?.errors?.['required']"
+              >Password is required</small
+            >
+            <small *ngIf="profileForm.get('password')?.errors?.['minlength']">
+              Password must be at least 6 characters
+            </small>
+          </div>
         </div>
 
         <!-- Save Changes -->
         <div class="sm:col-span-2 text-right">
           <button
             type="submit"
+            [disabled]="profileForm.invalid"
+            [ngClass]="{
+              'bg-[#0dcaf0]': !profileForm.invalid,
+              'bg-gray-400 cursor-not-allowed': profileForm.invalid,
+              'hover:bg-[#0db7d0]': !profileForm.invalid,
+              'transition duration-300': true
+            }"
             class="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition transform hover:scale-105"
           >
             Save Changes

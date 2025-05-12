@@ -44,6 +44,10 @@ public class User {
 
     private String role;
 
+    private String functionality;
+
+    private String picturePath;
+
 //    @OneToMany(mappedBy = "sender")
 //    private List<Chat> chatsAsSender;
 //

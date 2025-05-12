@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignUpComponent implements OnInit {
   public signUpForm!: FormGroup;
+  profilePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +36,8 @@ export class SignUpComponent implements OnInit {
         confirmPassword: ['', [Validators.required]],
         gender: ['', [Validators.required]],
         question: ['', [Validators.required]],
+        functionality: ['', [Validators.required]],
+        profilePicture: [null, Validators.required],
       },
       {
         validators: this.passwordMatchValidator,
@@ -48,15 +51,32 @@ export class SignUpComponent implements OnInit {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
+  onFileSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.signUpForm.patchValue({ profilePicture: file });
+      this.signUpForm.get('profilePicture')?.updateValueAndValidity();
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profilePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   signUp(): void {
     let fullName = this.signUpForm.value.fullName;
     let email = this.signUpForm.value.email;
     let password = this.signUpForm.value.password;
     let gender = this.signUpForm.value.gender;
     let question = this.signUpForm.value.question;
+    let functionality = this.signUpForm.value.functionality;
+    let profilePicture = this.signUpForm.value.profilePicture;
 
     this.authService
-      .register(fullName, email, password, gender, question)
+      .register(fullName, email, password, gender, question, functionality, profilePicture)
       .subscribe({
         next: (data) => {
           console.log('Registration Successful:', data);
