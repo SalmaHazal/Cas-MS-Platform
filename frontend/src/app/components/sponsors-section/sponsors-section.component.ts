@@ -9,12 +9,12 @@ import { CommonModule } from '@angular/common';
 })
 export class SponsorsSectionComponent {
   associations = [
-    { name: 'Association AL Rayane', image: 'assets/images/partenaire-logo-68.jpg', link: 'https://www.creative-tim.com/learning-lab/tailwind/svelte/alerts/notus?ref=vtw-index' },
-    { name: 'Solident', image: 'assets/images/th.jpeg', link: 'https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=vtw-index' },
-    { name: 'Coeur Ouvert', image: 'assets/images/ouvert.png', link: 'https://www.creative-tim.com/learning-lab/tailwind/nextjs/alerts/notus?ref=vtw-index' },
-    { name: 'APEMD', image: 'assets/images/apemd.jpg', link: 'https://www.creative-tim.com/learning-lab/tailwind/js/alerts/notus?ref=vtw-index' },
-    { name: 'Ibtassim Foundation', image: 'assets/images/ibtassim.jpg', link: 'https://www.creative-tim.com/learning-lab/tailwind/angular/alerts/notus?ref=vtw-index' },
-    { name: 'Fondation Assalam', image: 'assets/images/assalam.png', link: 'https://www.creative-tim.com/learning-lab/tailwind/vue/alerts/notus?ref=vtw-index' },
+    { name: 'Association AL Rayane', image: '', link: 'https://www.creative-tim.com/learning-lab/tailwind/svelte/alerts/notus?ref=vtw-index' },
+    { name: 'Solident', image: '', link: 'https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=vtw-index' },
+    { name: 'Coeur Ouvert', image: '', link: 'https://www.creative-tim.com/learning-lab/tailwind/nextjs/alerts/notus?ref=vtw-index' },
+    { name: 'APEMD', image: '', link: 'https://www.creative-tim.com/learning-lab/tailwind/js/alerts/notus?ref=vtw-index' },
+    { name: 'Ibtassim Foundation', image: '', link: 'https://www.creative-tim.com/learning-lab/tailwind/angular/alerts/notus?ref=vtw-index' },
+    { name: 'Fondation Assalam', image: '', link: 'https://www.creative-tim.com/learning-lab/tailwind/vue/alerts/notus?ref=vtw-index' },
   ];
   currentPage = 1;
   itemsPerPage = 3;

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
-//import { AuthenticationService } from '../services/authentication.service';
+import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../../services/user-service/user.service';
+import { AuthService } from '../../services/auth-service/auth.service';
 
 interface MenuItem {
   icon: string;
@@ -17,62 +18,81 @@ interface MenuItem {
   imports: [CommonModule, RouterLink],
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent implements OnInit {
   @Input() isSidebarCollapsed = false;
   @Output() sidebarToggle = new EventEmitter<void>();
 
-    sMenuOpen = false;
-   
-   //constructor(public authenticationService: AuthenticationService){}
-    toggleMenu() {
-      this.sMenuOpen = !this.sMenuOpen;
-    }
-    
-    ngOnInit(): void {
-        
-    }
-    logout(){
-      //this.authenticationService.logout()
-    }
+  sMenuOpen = false;
+  user: any;
+
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.getUserDetails();
+  }
+
+  getUserDetails() {
+    this.userService.fetchUserDetails().subscribe({
+      next: (user) => {
+        this.user = user;
+        console.log('User profile updated:', user);
+      },
+      error: (err) => {
+        console.error('Error fetching user profile:', err);
+      },
+    });
+  }
+
+  toggleMenu() {
+    this.sMenuOpen = !this.sMenuOpen;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/home']);
+  }
 
   menuItems: MenuItem[] = [
     {
       icon: 'fas fa-home',
       label: 'Dashboard',
       isOpen: false,
-      path: "/app/dashboard",
-      
+      path: '/app/dashboard',
     },
-    
+
     {
       icon: 'fas fa-envelope',
       label: 'Messages',
-      path: "/app/chat",
+      path: '/app/chat',
     },
     {
       icon: 'fas fa-calendar',
       label: 'Calendar',
-      path: "/app/calendar",
+      path: '/app/calendar',
     },
     {
       icon: 'fas fa-tasks',
       label: 'Projects',
-      path: "/app/projects",
+      path: '/app/projects',
     },
     {
       icon: 'fas fa-file',
       label: 'Documentation',
-      path: "/app/documentation",
+      path: '/app/documentation',
     },
     {
       icon: 'fas fa-cog',
       label: 'Settings',
       isOpen: false,
-      path: "/app/dashboard",
+      path: '/app/dashboard',
       children: [
         { icon: 'fas fa-user', label: 'Profile' },
         { icon: 'fas fa-lock', label: 'Security' },
-      ]
+      ],
     },
   ];
 
@@ -81,7 +101,6 @@ export class SidebarComponent implements OnInit{
   }
 
   toggleMenuItem(item: MenuItem) {
-    // Only toggle if sidebar is not collapsed and item has children
     if (!this.isSidebarCollapsed && item.children) {
       item.isOpen = !item.isOpen;
     }

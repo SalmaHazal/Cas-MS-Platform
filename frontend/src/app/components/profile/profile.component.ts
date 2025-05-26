@@ -10,7 +10,7 @@ import { ProfileService } from '../../services/profile-service/profile-service.s
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
-import { UserProfile } from '../../services/auth-service/UserProfile';
+import { UserProfile } from '../../../models/UserProfile';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
